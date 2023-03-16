@@ -1,7 +1,10 @@
 {{#each categories}}
   <div class="box box-link-hover-shadow">
-    <h2 class="title">
-      {{category}}
-    </h2>
+    <h2 class="title">{{type}}</h2>
+    <a href="/category/{{_id}}" class="button">
+      <span class="icon is-small">
+        <i class="fas fa-folder-open"></i>
+      </span> View Points of Interest
+    </a>
   </div>
 {{/each}}
