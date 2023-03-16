@@ -1,12 +1,12 @@
 import { userMemStore } from "./mem/user-mem-store.js";
-import { playlistMemStore } from "./mem/category-mem-store.js";
+import { categoryMemStore } from "./mem/category-mem-store.js";
 
 export const db = {
   userStore: null,
-  playlistStore: null,
+  categoryStore: null,
 
   init() {
     this.userStore = userMemStore;
-    this.playlistStore = playlistMemStore;
+    this.categoryStore = categoryMemStore;
   },
 };
