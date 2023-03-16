@@ -1,0 +1,20 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each category.pois}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{description}}</td>
+        <td>{{latitude}}</td>
+        <td>{{longitude}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
