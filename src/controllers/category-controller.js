@@ -25,4 +25,12 @@ export const categoryController = {
       return h.redirect(`/category/${category._id}`);
     },
   },
+
+  deletePoi: {
+    handler: async function(request, h) {
+      const category = await db.categoryStore.getCategoryById(request.params.id);
+      await db.poiStore.deletePoi(request.params.poiId);
+      return h.redirect(`/category/${category._id}`);
+    },
+  },
 };

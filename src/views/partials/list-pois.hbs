@@ -5,6 +5,7 @@
       <th>Description</th>
       <th>Latitude</th>
       <th>Longitude</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,11 @@
         <td>{{description}}</td>
         <td>{{latitude}}</td>
         <td>{{longitude}}</td>
+        <td>
+          <a href="/category/{{../category._id}}/delete-poi/{{_id}}" class="button">
+          <i class="fas fa-trash"></i>&emsp;Delete POI
+          </a>
+        </td>
       </tr>
     {{/each}}
   </tbody>
