@@ -25,7 +25,7 @@ export const categoryJsonStore = {
   async getCategoryById(id) {
     await db.read();
     const list = db.data.categories.find((category) => category._id === id);
-    list.pois = await poiJsonStore.getPoisByPlaylistId(list._id);
+    list.pois = await poiJsonStore.getPoisByCategoryId(list._id);
     return list;
   },
 

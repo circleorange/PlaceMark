@@ -1,4 +1,20 @@
 {
-    "pois": []
-  }
-  
+  "pois": [
+    {
+      "name": "test",
+      "description": "test",
+      "latitude": 50,
+      "longitude": 20,
+      "_id": "fa4c717e-cc95-4da5-a9c0-0a6840471328",
+      "categoryid": "c92eafba-31da-40ac-a49b-2c7a9ea53960"
+    },
+    {
+      "name": "test",
+      "description": "test",
+      "latitude": 50,
+      "longitude": 20,
+      "_id": "33c721f7-b713-4cf0-94e3-2c8df7fe0e21",
+      "categoryid": "806a37cc-cd3c-435e-b7f1-b0464677c7a2"
+    }
+  ]
+}
