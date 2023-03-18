@@ -6,7 +6,7 @@ import { assertSubset } from "../test-utils.js";
 suite("Poi Model Tests", () => {
   let ringfortsList = null;
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     await db.poiStore.deleteAllPois();
     ringfortsList = await db.categoryStore.addCategory(ringforts);
