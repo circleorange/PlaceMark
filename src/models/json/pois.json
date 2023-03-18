@@ -1,20 +1,28 @@
 {
   "pois": [
     {
-      "name": "test",
-      "description": "test",
-      "latitude": 50,
-      "longitude": 20,
-      "_id": "fa4c717e-cc95-4da5-a9c0-0a6840471328",
-      "categoryid": "c92eafba-31da-40ac-a49b-2c7a9ea53960"
+      "name": "Cahergal",
+      "description": "Well-preserved ringfort in County Kerry",
+      "latitude": 52,
+      "longitude": 9,
+      "_id": "aed1846e-6531-4bdb-9030-569c351bb9c9",
+      "categoryid": "12c57d0a-5716-4cef-8253-a4ac6bb85791"
     },
     {
-      "name": "test",
-      "description": "test",
-      "latitude": 50,
-      "longitude": 20,
-      "_id": "33c721f7-b713-4cf0-94e3-2c8df7fe0e21",
-      "categoryid": "806a37cc-cd3c-435e-b7f1-b0464677c7a2"
+      "name": "Staigue Fort",
+      "description": "Massive ringfort in County Kerry",
+      "latitude": 51,
+      "longitude": 10,
+      "_id": "74fa7782-9cb3-4f74-9718-3fd10953a2ca",
+      "categoryid": "12c57d0a-5716-4cef-8253-a4ac6bb85791"
+    },
+    {
+      "name": "Dun Aengus",
+      "description": "Ancient fort on Inishmore Island",
+      "latitude": 53,
+      "longitude": 9,
+      "_id": "1a1e1367-11ca-4f40-96fa-e0cc935407a4",
+      "categoryid": "12c57d0a-5716-4cef-8253-a4ac6bb85791"
     }
   ]
 }
