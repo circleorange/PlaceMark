@@ -19,7 +19,7 @@ export const placemarkService = {
     const res = await axios.delete(`${this.placemarkUrl}/api/users`);
     return res.data;
   },
-  async createPlaylist(category) {
+  async createCategory(category) {
     const res = await axios.post(`${this.placemarkUrl}/api/categories`, category);
     return res.data;
   },
@@ -27,7 +27,7 @@ export const placemarkService = {
     const response = await axios.delete(`${this.placemarkUrl}/api/categories`);
     return response.data;
   },
-  async deletePlaylist(id) {
+  async deleteCategory(id) {
     const response = await axios.delete(`${this.placemarkUrl}/api/categories/${id}`);
     return response;
   },
@@ -35,7 +35,7 @@ export const placemarkService = {
     const res = await axios.get(`${this.placemarkUrl}/api/categories`);
     return res.data;
   },
-  async getPlaylist(id) {
+  async getCategory(id) {
     const res = await axios.get(`${this.placemarkUrl}/api/categories/${id}`);
     return res.data;
   },
