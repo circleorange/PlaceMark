@@ -3,12 +3,14 @@ import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
 import { maggie, maggieCredentials, beaches, testCategories } from "../fixtures.js";
+import { db } from "../../src/models/db.js";
 
 EventEmitter.setMaxListeners(25);
 
 suite("Category API tests", () => {
   let user = null;
   setup(async () => {
+    db.init("json");
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(maggie);

@@ -2,11 +2,13 @@ import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
 import { maggie, beaches, testCategories, testPois, beach, maggieCredentials } from "../fixtures.js";
+import { db } from "../../src/models/db.js";
 
 suite("POI API tests", () => {
   let user = null;
   let newBeaches = null;
   setup(async () => {
+    db.init("json");
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllPois();
     await placemarkService.deleteAllUsers();

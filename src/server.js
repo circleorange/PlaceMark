@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import Cookie from "@hapi/cookie";
 import dotenv from "dotenv";
 import Joi from "joi";
+import Inert from "@hapi/inert";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
@@ -26,7 +27,7 @@ async function init() {
     host: "localhost",
   });
   await server.register(Vision);
-  // Accounts authentication; plugin "Cookie", strategy, default authentication
+  await server.register(Inert);
   await server.register(Cookie);
   server.auth.strategy("session", "cookie", {
     cookie: {
@@ -51,7 +52,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
-  db.init("mongo");
+  db.init("json");
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();
