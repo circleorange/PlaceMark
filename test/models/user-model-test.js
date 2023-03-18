@@ -4,7 +4,7 @@ import { maggie, testUsers } from "../fixtures.js";
 
 suite("User Model Tests", () => {
   setup(async () => {
-    db.init("json");
+    db.init();
     await db.userStore.deleteAll();
   });
   test("Create new user", async () => {

@@ -14,11 +14,14 @@ export const categoryMemStore = {
   },
   async deleteCategoryById(id) {
     const index = categories.findIndex((category) => category._id === id);
-    categories.splice(index, 1);
+    if (index !== -1) categories.splice(index, 1);
   },
   async getCategoryById(id) {
     const list = categories.find((category) => category._id === id);
-    list.pois = await poiMemStore.getPoisByCategoryId(list._id);
-    return list;
+    if (list) {
+      list.pois = await poiMemStore.getPoisByCategoryId(list._id);
+      return list;
+    }
+    return null;
   },
 };
