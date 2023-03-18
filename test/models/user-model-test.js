@@ -1,15 +1,16 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
 import { maggie, testUsers } from "../fixtures.js";
+import { assertSubset } from "../test-utils.js";
 
 suite("User Model Tests", () => {
   setup(async () => {
-    db.init();
+    db.init("mongo");
     await db.userStore.deleteAll();
   });
   test("Create new user", async () => {
     const newUser = await db.userStore.addUser(maggie);
-    assert.deepEqual(maggie, newUser)
+    assertSubset(maggie, newUser);
   });
   test("Delete all users", async () => {
     for (let i = 0; i < testUsers.length; i += 1) {

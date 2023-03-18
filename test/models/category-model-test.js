@@ -6,7 +6,7 @@ import { assertSubset } from "../test-utils.js";
 
 suite("Category Model Tests", () => {
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     for (let i = 0; i < testCategories.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
