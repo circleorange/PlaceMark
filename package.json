@@ -8,11 +8,13 @@
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
     "dev": "nodemon --verbose src/server.js --ignore 'src/models/json/*.json'",
-    "test": "_mocha --ui tdd test/models/**/*.js -exit"
+    "testmodels": "_mocha --ui tdd test/models/**/*.js",
+    "testapi": "_mocha --ui tdd test/api/**/*.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^1.3.4",
     "chai": "^4.3.7",
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -23,6 +25,7 @@
     "prettier": "^2.8.4"
   },
   "dependencies": {
+    "@hapi/boom": "^10.0.1",
     "@hapi/cookie": "^12.0.1",
     "@hapi/hapi": "^21.3.0",
     "@hapi/vision": "^7.0.1",
