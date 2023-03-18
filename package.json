@@ -7,15 +7,18 @@
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
-    "dev": "nodemon --verbose src/server.js --ignore 'src/models/json/*.json'"
+    "dev": "nodemon --verbose src/server.js --ignore 'src/models/json/*.json'",
+    "test": "_mocha --ui tdd test/models/**/*.js -exit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.21",
     "prettier": "^2.8.4"
   },
@@ -27,6 +30,7 @@
     "handlebars": "^4.7.7",
     "joi": "^17.8.4",
     "lowdb": "^5.1.0",
+    "mongoose": "^7.0.2",
     "uuid": "^9.0.0"
   }
 }
