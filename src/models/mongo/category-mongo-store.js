@@ -27,7 +27,7 @@ export const categoryMongoStore = {
     try {
       await Category.deleteOne({ _id: id });
     } catch (error) {
-      console.log("Bad Category ID");
+      console.log("Category ID not found");
     }
   },
   async deleteAllCategories() {

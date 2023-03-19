@@ -12,17 +12,6 @@ suite("User Model Tests", () => {
     const newUser = await db.userStore.addUser(maggie);
     assertSubset(maggie, newUser);
   });
-  test("Delete all users", async () => {
-    for (let i = 0; i < testUsers.length; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await db.userStore.addUser(testUsers[i]);
-    }
-    let returnedUsers = await db.userStore.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
-    await db.userStore.deleteAll();
-    returnedUsers = await db.userStore.getAllUsers();
-    assert.equal(returnedUsers.length, 0);
-  });
   test("Get user - Success", async () => {
     const user = await db.userStore.addUser(maggie);
     const returnedUser1 = await db.userStore.getUserById(user._id);
@@ -41,6 +30,17 @@ suite("User Model Tests", () => {
     // Check if deleted user doesn't exist in db
     const deletedUser = await db.userStore.getUserById(testUsers[0]._id);
     assert.isNull(deletedUser);
+  });
+  test("Delete all users", async () => {
+    for (let i = 0; i < testUsers.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await db.userStore.addUser(testUsers[i]);
+    }
+    let returnedUsers = await db.userStore.getAllUsers();
+    assert.equal(returnedUsers.length, 3);
+    await db.userStore.deleteAll();
+    returnedUsers = await db.userStore.getAllUsers();
+    assert.equal(returnedUsers.length, 0);
   });
   test("Get invalid user - Failure", async () => {
     const noUserWithId = await db.userStore.getUserById("123");
