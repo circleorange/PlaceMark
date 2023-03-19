@@ -2,16 +2,19 @@ import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
 import { maggie, testUsers } from "../fixtures.js";
-import { db } from "../../src/models/db.js";
 
 suite("User API Tests", () => {
   setup(async () => {
-    db.init("json");
+    placemarkService.clearAuth();
+    await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
     await placemarkService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       testUsers[i] = await placemarkService.createUser(testUsers[i]);
     }
+    await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
   });
   teardown(async () => {});
   test("Create new user", async () => {
@@ -21,12 +24,14 @@ suite("User API Tests", () => {
   });
   test("Delete all users", async () => {
     let returnedUsers = await placemarkService.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
+    assert.equal(returnedUsers.length, 4);
     await placemarkService.deleteAllUsers();
+    await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
     returnedUsers = await placemarkService.getAllUsers();
-    assert.equal(returnedUsers.length, 0);
+    assert.equal(returnedUsers.length, 1);
   });
-  test("Get user - Success", async () => {
+  test("Get user", async () => {
     const returnedUser = await placemarkService.getUser(testUsers[0]._id);
     assert.deepEqual(testUsers[0], returnedUser);
   });
@@ -42,6 +47,7 @@ suite("User API Tests", () => {
   test("Get invalid user - Deleted user", async () => {
     await placemarkService.deleteAllUsers();
     await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
     try {
       const returnedUser = await placemarkService.getUser(testUsers[0]._id);
       assert.fail("Should not return a response");

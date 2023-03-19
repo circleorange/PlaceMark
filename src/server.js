@@ -1,3 +1,4 @@
+import jwt from "hapi-auth-jwt2";
 import Hapi from "@hapi/hapi";
 import Vision from "@hapi/vision";
 import Handlebars from "handlebars";
@@ -8,6 +9,7 @@ import dotenv from "dotenv";
 import Joi from "joi";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
+import { validate } from "./api/jwt-utils.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
@@ -34,6 +36,7 @@ async function init() {
   await server.register(Vision);
   await server.register(Inert); // Vision plugin for handling images
   await server.register(Cookie);
+  await server.register(jwt);
   await server.register([
     Inert,
     Vision,
@@ -51,8 +54,12 @@ async function init() {
     redirectTo: "/",
     validate: accountsController.validate,
   });
+  server.auth.strategy("jwt", "jwt", {
+    key: process.env.COOKIE_PWD,
+    validate: validate,
+    verifyOptions: { algorithms: ["HS256"] }
+  });
   server.auth.default("session");
-  // Input validation
   server.validator(Joi);
   server.views({
     engines: {
@@ -71,7 +78,6 @@ async function init() {
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }
-
 process.on("unhandledRejection", (err) => {
   console.log(err);
   process.exit(1);
