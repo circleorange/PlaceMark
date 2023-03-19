@@ -13,9 +13,9 @@ export const categoryApi = {
       } catch (err) { return Boom.serverUnavailable("Database Error"); }
     },
     tags: ["api"],
-    response: { schema: CategoryArraySpec, failAction: validationError },
     description: "Get all categories",
     notes: "Returns all categories",
+    response: { schema: CategoryArraySpec, failAction: validationError },
   },
   findOne: {
     auth: { strategy: "jwt" },

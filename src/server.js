@@ -27,7 +27,17 @@ const swaggerOptions = {
     title: "PlaceMark API",
     version: "0.1",
   },
+  // Interface for providing security strategy to doc page (otherwise APIs won't pass auth)
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header",
+    }
+  },
+  security: [{ jwt: [] }]
 };
+
 async function init() {
   const server = Hapi.server({
     port: 3000,

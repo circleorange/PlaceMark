@@ -1,9 +1,9 @@
 import Joi from "joi";
 
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("Valid ID");
+
 // ----- USER SCHEMA -----
-export const UserCredentialsSpec = Joi.object()
-  .keys({
+export const UserCredentialsSpec = Joi.object().keys({
     email: Joi.string().email().example("homer@simpson.com").required(),
     password: Joi.string().example("secret").required(),
   })
@@ -11,16 +11,13 @@ export const UserCredentialsSpec = Joi.object()
 export const UserSpec = UserCredentialsSpec.keys({
   firstName: Joi.string().example("Homer").required(),
   lastName: Joi.string().example("Simpson").required(),
-  email: Joi.string().email().example("homer@simpson.com").required(),
-  password: Joi.string().example("secret").required(),
-  _id: IdSpec,
-  __v: Joi.number(),
 }).label("UserDetails");
 export const UserSpecPlus = UserSpec.keys({
   _id: IdSpec,
   __v: Joi.number(),
 }).label("UserDetailsPlus");
-export const UserArray = Joi.array().items(UserSpec).label("UserArray");
+export const UserArraySpec = Joi.array().items(UserSpecPlus).label("UserArray");
+
 // ----- POINT OF INTEREST (POI) SCHEMA -----
 export const PoiSpec = Joi.object()
   .keys({
@@ -37,6 +34,7 @@ export const PoiSpecPlus = PoiSpec.keys({
   __v: Joi.number(),
 }).label("PoiPlus");
 export const PoiArraySpec = Joi.array().items(PoiSpecPlus).label("PoiArray");
+
 // ----- CATEGORY SCHEMA -----
 export const CategorySpec = Joi.object()
   .keys({
@@ -50,3 +48,11 @@ export const CategorySpecPlus = CategorySpec.keys({
   __v: Joi.number(),
 }).label("CategoryPlus");
 export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");
+
+// ----- AUTHENTICATION -----
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+  })
+  .label("JwtAuth");

@@ -1,7 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
-import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas.js";
+import { UserSpec, UserSpecPlus, UserCredentialsSpec, IdSpec, UserArraySpec, JwtAuth } from "../models/joi-schemas.js";
 import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
@@ -16,7 +16,7 @@ export const userApi = {
     tags: ["api"],
     description: "Get all users",
     notes: "Returns details of all users",
-    response: { schema: UserArray, failAction: validationError },
+    response: { schema: UserArraySpec, failAction: validationError },
   },
   findOne: {
     auth: { strategy: "jwt" },
@@ -73,10 +73,10 @@ export const userApi = {
         return h.response({ success: true, token: token }).code(201);
       } catch (err) { return Boom.serverUnavailable("Database Error"); }
     },
-    // tags: ["api"],
-    // description: "Authenticate user",
-    // notes: "If user has valid email & password, create and return JWT token",
-    // validate: { payload: UserCredentialsSpec, failAction: validationError },
-    // response: { schema: JwtAuth, failAction: validationError },
+    tags: ["api"],
+    description: "Authenticate user",
+    notes: "If user has valid email & password, create and return JWT token",
+    validate: { payload: UserCredentialsSpec, failAction: validationError },
+    response: { schema: JwtAuth, failAction: validationError },
   },
 };
