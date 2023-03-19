@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { validationError } from "./logger.js";
+import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas.js";
 
 export const userApi = {
   find: {
@@ -10,6 +12,10 @@ export const userApi = {
         return users;
       } catch (err) { return Boom.serverUnavailable("Database Error"); }
     },
+    tags: ["api"],
+    description: "Get all users",
+    notes: "Returns details of all users",
+    response: { schema: UserArray, failAction: validationError },
   },
   findOne: {
     auth: false,
@@ -20,6 +26,11 @@ export const userApi = {
         return user;
       } catch (err) { return Boom.serverUnavailable("User ID not found"); }
     },
+    tags: ["api"],
+    description: "Get a specific user",
+    notes: "Returns user details",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
   },
   create: {
     auth: false,
@@ -30,6 +41,11 @@ export const userApi = {
         return Boom.badImplementation("Error creating user");
       } catch (err) {return Boom.serverUnavailable("Database Error"); }
     },
+    tags: ["api"],
+    description: "Create new user",
+    notes: "Return newly created user",
+    validate: { payload: UserSpec, failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
   },
   deleteAll: {
     auth: false,
@@ -41,5 +57,8 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all users",
+    notes: "Deletes all users from PlaceMark",
   },
 };

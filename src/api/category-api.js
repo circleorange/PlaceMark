@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
+import { IdSpec, CategoryArraySpec, CategorySpec, CategorySpecPlus } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { validationError } from "./logger.js";
 
 export const categoryApi = {
   find: {
@@ -10,6 +12,10 @@ export const categoryApi = {
         return categories;
       } catch (err) { return Boom.serverUnavailable("Database Error"); }
     },
+    tags: ["api"],
+    response: { schema: CategoryArraySpec, failAction: validationError },
+    description: "Get all categories",
+    notes: "Returns all categories",
   },
   findOne: {
     auth: false,
@@ -22,6 +28,11 @@ export const categoryApi = {
         return category;
       } catch (err) { return Boom.serverUnavailable("No Category with this id"); }
     },
+    tags: ["api"],
+    description: "Find category",
+    notes: "Returns queried category",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: CategorySpecPlus, failAction: validationError },
   },
   create: {
     auth: false,
@@ -37,6 +48,11 @@ export const categoryApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create category",
+    notes: "Returns the newly created category",
+    validate: { payload: CategorySpec, failAction: validationError },
+    response: { schema: CategorySpecPlus, failAction: validationError },
   },
   deleteOne: {
     auth: false,
@@ -52,6 +68,9 @@ export const categoryApi = {
         return Boom.serverUnavailable("No Category with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete category",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
   deleteAll: {
     auth: false,
@@ -63,5 +82,7 @@ export const categoryApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all categories",
   },
 };

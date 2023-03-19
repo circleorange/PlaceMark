@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
+export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("Valid ID");
 // ----- USER SCHEMA -----
 export const UserCredentialsSpec = Joi.object()
   .keys({
@@ -11,12 +11,16 @@ export const UserCredentialsSpec = Joi.object()
 export const UserSpec = UserCredentialsSpec.keys({
   firstName: Joi.string().example("Homer").required(),
   lastName: Joi.string().example("Simpson").required(),
+  email: Joi.string().email().example("homer@simpson.com").required(),
+  password: Joi.string().example("secret").required(),
+  _id: IdSpec,
+  __v: Joi.number(),
 }).label("UserDetails");
 export const UserSpecPlus = UserSpec.keys({
   _id: IdSpec,
   __v: Joi.number(),
 }).label("UserDetailsPlus");
-export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
+export const UserArray = Joi.array().items(UserSpec).label("UserArray");
 // ----- POINT OF INTEREST (POI) SCHEMA -----
 export const PoiSpec = Joi.object()
   .keys({
@@ -24,6 +28,8 @@ export const PoiSpec = Joi.object()
     description: Joi.string().required().example("Amazing beach and such a beautiful landscape"),
     latitude: Joi.number().allow("").optional().example(53.2515).min(-90).max(90),
     longitude: Joi.number().allow("").optional().example(-9.1263).min(-180).max(180),
+    categoryid: IdSpec,
+  __v: Joi.number(),
   })
   .label("Poi");
 export const PoiSpecPlus = PoiSpec.keys({
