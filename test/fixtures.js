@@ -51,13 +51,13 @@ export const ringforts = {
 
 export const testCategories = [
   {
-    title: "Beaches"
+    type: "Beaches"
   },
   {
-    title: "Ringforts"
+    type: "Ringforts"
   },
   {
-    title: "Mountains"
+    type: "Mountains"
   }
 ];
 

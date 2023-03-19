@@ -23,9 +23,9 @@ export const poiJsonStore = {
   },
   async getPoiById(id) {
     await db.read();
-    const poi = db.data.pois.find((poi) => poi._id === id);
-    if (poi === undefined) { return null }
-    return poi
+    const POI = db.data.pois.find((poi) => poi._id === id);
+    if (POI === undefined) { return null }
+    return POI
   },
   async deletePoi(id) {
     await db.read();

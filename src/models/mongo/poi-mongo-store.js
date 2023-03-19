@@ -26,7 +26,7 @@ export const poiMongoStore = {
     try {
       await Poi.deleteOne({ _id: id });
     } catch (error) {
-      console.log("bad id");
+      console.log("POI ID not found");
     }
   },
   async deleteAllPois() { await Poi.deleteMany({}); },

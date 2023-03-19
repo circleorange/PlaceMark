@@ -6,9 +6,9 @@ export const poiMemStore = {
   async getAllPois() { return pois; },
   async getPoisByCategoryId(id) { return pois.filter((poi) => poi.categoryid === id); },
   async getPoiById(id) { 
-    const poi = pois.find((poi) => poi._id === id); 
-    if (poi === undefined) { return null }
-    return poi
+    const POI = pois.find((poi) => poi._id === id); 
+    if (POI === undefined) { return null }
+    return POI
   },
   async getCategoryPois(categoryId) { return pois.filter((poi) => poi.categoryid === categoryId); },
   async deleteAllPois() { pois = []; },
