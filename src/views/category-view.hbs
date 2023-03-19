@@ -1,9 +1,14 @@
 {{> menu}}
 
-<section class="section">
-  <div class="title">
-    {{category.type}}
+<section class="section columns is-vcentered">
+  <div class="column has-text-centered">
+    <div class="title">
+      {{category.type}}
+    </div>
+    {{> list-pois}}
+    {{> add-poi}}
   </div>
-  {{> list-pois}}
-  {{> add-poi}}
+  <div class="column">
+    {{> category-image }}
+  </div>
 </section>
