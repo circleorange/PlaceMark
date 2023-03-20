@@ -40,8 +40,7 @@ const swaggerOptions = {
 
 async function init() {
   const server = Hapi.server({
-    port: 3000,
-    host: "localhost",
+    port: process.env.PORT || 3000,
   });
   await server.register(Vision);
   await server.register(Inert); // Vision plugin for handling images
@@ -82,7 +81,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
-  db.init("json");
+  db.init("mongo");
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();
