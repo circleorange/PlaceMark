@@ -23,6 +23,14 @@
       "longitude": 9,
       "_id": "7af612b0-1707-48ec-89dc-baa25b066c65",
       "categoryid": "26015fdf-1d3c-4ccd-bbc2-66dd4cd3a501"
+    },
+    {
+      "name": "test",
+      "description": "poi",
+      "latitude": 50,
+      "longitude": 20,
+      "_id": "00f86b2e-26a6-4f1d-a812-ceb2e9ad5684",
+      "categoryid": "ed0ab238-3ecd-4ec5-b71a-24602343f7f0"
     }
   ]
 }

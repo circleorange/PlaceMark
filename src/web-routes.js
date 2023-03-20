@@ -22,4 +22,8 @@ export const webRoutes = [
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
   { method: "POST", path: "/category/{id}/upload-image", config: categoryController.uploadImage },
+
+  { method: "GET", path: "/admin-login", config: accountsController.showAdminLogin },
+  { method: "POST", path: "/admin-authenticate", config: accountsController.adminLogin },
+  { method: "GET", path: "/admin-dashboard", config: dashboardController.adminIndex },
 ];

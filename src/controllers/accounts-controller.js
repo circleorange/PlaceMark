@@ -58,4 +58,25 @@ export const accountsController = {
     if (!user) { return { isValid: false }; }
     return { isValid: true, credentials: user };
   },
+  showAdminLogin: {
+    auth: false,
+    handler: function (request, h) { return h.view("admin-login-view", { title: "Administrator Login Page" }); },
+  },
+  adminLogin: {
+    auth: false,
+    validate: {
+      payload: UserCredentialsSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("admin-login-view", { title: "Incorrect login details", errors: error.details }).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const { email, password } = request.payload;
+      const user = await db.userStore.getUserByEmail("admin@placemark.com");
+      if (!user || user.password !== password) { return h.redirect("/admin-login"); }
+      request.cookieAuth.set({ id: user._id });
+      return h.redirect("/admin-dashboard");
+    },
+  },
 };
