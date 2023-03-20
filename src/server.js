@@ -82,7 +82,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
-  db.init("mongo");
+  db.init("firebase");
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();

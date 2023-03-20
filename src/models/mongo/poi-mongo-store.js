@@ -1,8 +1,8 @@
 import { Poi } from "./poi.js";
 
 export const poiMongoStore = {
-  async addPoi(playlistId, poi) {
-    poi.playlistid = playlistId;
+  async addPoi(categoryId, poi) {
+    poi.categoryid = categoryId;
     const newPoi = new Poi(poi);
     const poiObj = await newPoi.save();
     return this.getPoiById(poiObj._id);
@@ -15,7 +15,7 @@ export const poiMongoStore = {
     return null;
   },
   async getPoisByCategoryId(id) {
-    const pois = await Poi.find({ playlistid: id }).lean();
+    const pois = await Poi.find({ categoryid: id }).lean();
     return pois;
   },
   async getAllPois() {
