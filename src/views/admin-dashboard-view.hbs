@@ -1,0 +1,45 @@
+{{> menu active="dashboard"}}
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+          <div class="notification is-primary">
+              <h1 class="title is-4">Total Categories</h1>
+              <p class="subtitle is-6">{{totalCategories}}</p>
+          </div>
+      </div>
+      <div class="column is-half">
+          <div class="notification is-warning">
+            <h1 class="title is-4">Total POI</h1>
+            <p class="subtitle is-6">{{totalPOI}}</p>
+          </div>
+      </div>
+  </div>
+  <div class="columns is-centered">
+      <div class="column is-half">
+        <div class="notification is-info">
+          <h1 class="title is-4">Signed Up Users</h1>
+          <table class="table is-striped is-fullwidth">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each signedUpUsers}}
+              <tr>
+                <td>{{this.firstName}}</td>
+                <td>{{this.lastName}}</td>
+                <td>{{this.email}}</td>
+              </tr>
+              {{/each}}   
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

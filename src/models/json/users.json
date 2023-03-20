@@ -6,6 +6,13 @@
       "email": "maggie@simpson.com",
       "password": "secret",
       "_id": "721cdbf0-4704-4e01-b335-38b1cb74fbbc"
+    },
+    {
+      "firstName": "admin",
+      "lastName": "admin",
+      "email": "admin@placemark.com",
+      "password": "admin",
+      "_id": "721cdbf0-4704-4e01-b335-38b1cb74f87y"
     }
   ]
 }

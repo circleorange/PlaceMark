@@ -38,5 +38,23 @@ export const dashboardController = {
         await db.categoryStore.deleteCategoryById(category._id);
         return h.redirect("/dashboard");
       },
-  }
+  },
+  adminIndex: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const allCategories = await db.categoryStore.getAllCategories();
+      const totalCategories = allCategories.length;
+      const allPOI = await db.poiStore.getAllPois();
+      const totalPOI = allPOI.length;
+      const signedUpUsers = await db.userStore.getAllUsers();
+      const viewData = {
+        title: "PlaceMark Dashboard",
+        user: loggedInUser,
+        totalCategories: totalCategories,
+        totalPOI: totalPOI,
+        signedUpUsers: signedUpUsers,
+      };
+      return h.view("admin-dashboard-view", viewData);
+    },
+  },
 };
