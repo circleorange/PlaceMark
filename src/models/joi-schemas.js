@@ -4,13 +4,13 @@ export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).descrip
 
 // ----- USER SCHEMA -----
 export const UserCredentialsSpec = Joi.object().keys({
-    email: Joi.string().email().example("homer@simpson.com").required(),
-    password: Joi.string().example("secret").required(),
+    email: Joi.string().email().example("homer@simpson.com").required().min(3).max(256),
+    password: Joi.string().example("secret").required().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$/),
   })
   .label("UserCredentials");
 export const UserSpec = UserCredentialsSpec.keys({
-  firstName: Joi.string().example("Homer").required(),
-  lastName: Joi.string().example("Simpson").required(),
+  firstName: Joi.string().example("Homer").required().regex(/^[A-Za-z][A-Za-z' ]+$/),
+  lastName: Joi.string().example("O'Simpson").required().regex(/^[A-Za-z][A-Za-z' ]+$/),
 }).label("UserDetails");
 export const UserSpecPlus = UserSpec.keys({
   _id: IdSpec,

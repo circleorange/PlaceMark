@@ -57,4 +57,27 @@ export const dashboardController = {
       return h.view("admin-dashboard-view", viewData);
     },
   },
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const placemark = await db.poiStore.getPoiById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          placemark.img = url;
+          await db.categoryStore.updateCategory(placemark);
+        }
+        return h.redirect(`/category/${category._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/category/${category._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
 };

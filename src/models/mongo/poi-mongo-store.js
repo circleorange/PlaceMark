@@ -37,4 +37,9 @@ export const poiMongoStore = {
     poiDoc.duration = updatedPoi.duration;
     await poiDoc.save();
   },
+  async insertPlacemarkImage(placemarkImage) {
+    const placemark = await Poi.findOne({ _id: placemarkImage._id });
+    placemark.img = placemarkImage.img;
+    await placemark.save();
+  },
 };

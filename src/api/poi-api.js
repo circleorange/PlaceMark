@@ -83,4 +83,26 @@ export const poiApi = {
       }
     },
   },
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const placemark = await db.poiStore.getPoiById(request.payload._id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          placemark.img = url;
+          await db.poiStore.insertPlacemarkImage(placemark);
+        }
+        return h.response(placemark).code(201);
+      } catch (err) {
+        return console.log(err)
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
 };
