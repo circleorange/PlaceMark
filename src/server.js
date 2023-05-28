@@ -9,11 +9,13 @@ import dotenv from "dotenv";
 import Joi from "joi";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
+import HapiCors from "hapi-cors";
 import { validate } from "./api/jwt-utils.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { apiRoutes } from "./api-routes.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,7 +43,10 @@ const swaggerOptions = {
 async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
+    host: "localhost",
+    routes: { cors: true },
   });
+
   await server.register(Vision);
   await server.register(Inert); // Vision plugin for handling images
   await server.register(Cookie);
@@ -49,10 +54,7 @@ async function init() {
   await server.register([
     Inert,
     Vision,
-    {
-      plugin: HapiSwagger,
-      options: swaggerOptions,
-    },
+    { plugin: HapiSwagger, options: swaggerOptions, },
   ]);
   server.auth.strategy("session", "cookie", {
     cookie: {

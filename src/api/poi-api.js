@@ -1,7 +1,5 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PoiSpec, PoiSpecPlus, PoiArraySpec } from "../models/joi-schemas.js";
-import { validationError } from "./logger.js";
 
 export const poiApi = {
   find: {
@@ -14,10 +12,6 @@ export const poiApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    tags: ["api"],
-    response: { schema: PoiArraySpec, failAction: validationError },
-    description: "Get all Points of Interest (POI)",
-    notes: "Returns all POI",
   },
   findOne: {
     auth: { strategy: "jwt" },
@@ -32,13 +26,24 @@ export const poiApi = {
         return Boom.serverUnavailable("No poi with this id");
       }
     },
-    tags: ["api"],
-    description: "Find POI",
-    notes: "Returns POI",
-    validate: { params: { id: IdSpec }, failAction: validationError },
-    response: { schema: PoiSpecPlus, failAction: validationError },
   },
   create: {
+    auth: { strategy: "jwt" },
+    handler: async function (request, h) {
+      try {
+        // console.log("api.POI.create.payload", request.payload);
+        const poi = await db.poiStore.addPoi(request.payload.categoryID, request.payload.newPOI);
+        if (poi) {
+          // console.log("api.POI.create.poi", poi);
+          return h.response(poi).code(201);
+        }
+        return Boom.badImplementation("error creating poi");
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+  legacyCreate: {
     auth: { strategy: "jwt" },
     handler: async function (request, h) {
       try {
@@ -51,11 +56,6 @@ export const poiApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    tags: ["api"],
-    description: "Create POI",
-    notes: "Returns the newly created POI",
-    validate: { payload: PoiSpec },
-    response: { schema: PoiSpecPlus, failAction: validationError },
   },
   deleteAll: {
     auth: { strategy: "jwt" },
@@ -67,8 +67,6 @@ export const poiApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    tags: ["api"],
-    description: "Delete all POI",
   },
   deleteOne: {
     auth: { strategy: "jwt" },
@@ -84,8 +82,5 @@ export const poiApi = {
         return Boom.serverUnavailable("No Poi with this id");
       }
     },
-    tags: ["api"],
-    description: "Delete POI",
-    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };
